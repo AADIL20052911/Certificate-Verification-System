@@ -1,110 +1,164 @@
-# Certificate Generation and Validation Using Blockchain
+# 🚀 Certificate Verification System (Blockchain + MERN)
 
-[![Docker Build](https://img.shields.io/docker/pulls/yogdaan/blockchain-certification?label=Docker%20Pulls&style=flat-square)](https://hub.docker.com/r/yogdaan/blockchain-certification)
-[![Build Status](https://travis-ci.org/yogdaan/blockchain-certification.svg?branch=master)](https://travis-ci.org/yogdaan/blockchain-certification)
-[![Join the chat at https://gitter.im/yogdaan/blockchain-certification](https://img.shields.io/gitter/room/certification-validation/community.js.svg?style=for-the-badge)](https://gitter.im/yogdaan/blockchain-certification)  
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+A blockchain-powered platform for **secure certificate generation, storage, and verification**.
+This project uses **Ethereum (local + testnet)**, **Smart Contracts**, **IPFS**, **MongoDB**, and a **Node.js/React.js** stack to ensure certificates cannot be forged, tampered, or duplicated.
 
-> Built using Ethereum on local blockchain setup and deployed on Rinkeby test network.
+---
 
-| Contract deployed at | 0x89c34c6a0d4c7587e9120a533757f380f4676887 |
-| -------------------- | ------------------------------------------ |
-| RPC Network          | Rinkeby Test Network                       |
+## ✨ Features
 
-## Steps to set up local development environment
+✔ Generate verifiable certificates
+✔ Store certificate hash on the blockchain
+✔ Validate authenticity using transaction hash
+✔ MERN stack architecture
+✔ Smart Contract deployed locally or on Testnet
+✔ Docker support
+✔ CI-ready structure (optional)
 
-### Setting local blockchain
+---
 
-1. We need to install CLI version of Ganache.
+## 🛠 Tech Stack
 
-   ```bash
-   npm install -g ganache-cli
-   ```
+| Layer          | Technology                   |
+| -------------- | ---------------------------- |
+| Frontend       | React.js / Web3.js           |
+| Backend        | Node.js / Express            |
+| Blockchain     | Ethereum / Ganache / Truffle |
+| Database       | MongoDB                      |
+| Smart Contract | Solidity                     |
+| Others         | IPFS, dotenv, Docker         |
 
-   > Ganache provides us our personal local blockchain network which we can use to develop our blockchain application. It also gives temporary test accounts with fake ethereum which we can use to run our apps. We need to start the RPC server before running our application.
+---
 
-1. To start the RPC server run the command
+# 📦 Local Development Setup
 
-   ```bash
-   npm run ganache
-   ```
+## 1️⃣ Clone the Repository
 
-   > Windows user will need to run this command in separate command prompt or terminal.
+```bash
+git clone https://github.com/AADIL20052911/Certificate-Verification-System.git
+cd Certificate-Verification-System
+```
 
-1. Deploy the smart contract to the local blockchain.
+---
 
-   ```bash
-   npm run contract-deploy
-   ```
+# 🔗 Blockchain Setup
 
-> The above 2 steps need to be run everytime you are running the project.
+## Install Ganache CLI
 
-### Setting local database
+```bash
+npm install -g ganache-cli
+```
 
-> MongoDB server should be running as a background Process
+Start Local Blockchain:
 
-1. Open mongo in terminal using command `mongo`
+```bash
+npm run ganache
+```
 
-1. Then change the db using command
+> Windows users: run this in a **separate terminal**.
 
-   ```bash
-   use certification
-   ```
+---
 
-1. Then set DB user and password with the following command
+## Deploy Smart Contract Locally
 
-   ```javascript
-   db.createUser({
-     user: "<YOUR USER NAME>",
-     pwd: "<YOUR USER PASSWORD>",
-     roles: [{ role: "dbOwner", db: "certification" }]
-   });
-   ```
+```bash
+npm run contract-deploy
+```
 
-1. Include these username and password in the `.env` file.
+Repeat these 2 commands every time you restart the project.
 
-### Now we can start the server
+---
+
+# 🗄 Database Setup (MongoDB)
+
+Ensure MongoDB server is running.
+
+Open Mongo shell:
+
+```bash
+mongo
+```
+
+Switch DB:
+
+```javascript
+use certification
+```
+
+Create user:
+
+```javascript
+db.createUser({
+  user: "<DB_USER>",
+  pwd: "<DB_PASSWORD>",
+  roles: [{ role: "dbOwner", db: "certification" }]
+});
+```
+
+Add these credentials to your `.env` file.
+
+---
+
+# 🚀 Start Server
 
 ```bash
 npm start
 ```
 
-## Deploying Smart Contract
+---
 
-The contract can be deployed in any test networks. We are using Rinkeby test network with help of truffle.
+# 🌐 Deploy Smart Contract to Testnet
 
-1. First of all we need to have a metamask account. When we create an account in metamask a _mnemonic_ is given to us. [You can read how to get a mnemonic here.](https://support.dex.top/hc/en-us/articles/360004125614-How-to-Create-Mnemonic-Phrase-with-MetaMask-)
+1. Create MetaMask account
+2. Copy your **mnemonic phrase**
+3. Create a project on **Infura**
+4. Get your endpoint:
 
-1. After that create a project in [Infura](https://infura.io). This will help us to use rinkeby network through infura.
-
-1. You will get an endpoint like this `https://rinkeby.infura.io/yourapikey`.
-
-1. Create a `.env` file in root directory and paste the previously genrated mnemonic and the endpoint URL in that. An example is also provided in [.env.example](./.env.example) file.
-
-   > For running in development environment and to use local blockchain network, use the LOCAL_ENDPOINT variable and replace the URL with your own local URL (These default values are filled already and shouldn't be changed unless until RPC server running on different port)
-
-1. Now you can deploy the smart contract using a single command:
-
-   ```BASH
-   npm run deploy
    ```
+   https://rinkeby.infura.io/v3/<YOUR_INFURA_KEY>
+   ```
+5. Add these to `.env` (sample in `.env.example`)
+6. Deploy:
 
-1. You will get a contract address of newly generated contract. Save this for further uses.
+```bash
+npm run deploy
+```
 
-## Testing app
-
-To test the app run the command `truffle test`. RPC server should be running to run the tests.
-
-## Useful reads
-
-- [Some instructions and commands for debugging in Truffle Console](./instructions/COMMANDS.md)
-
-## Youtube Video for better understanding of the project
-
-[![youtube-picture](https://img.youtube.com/vi/pByqlMCx7Bk/maxresdefault.jpg)](https://www.youtube.com/watch?v=pByqlMCx7Bk)
+Save the contract address for later use.
 
 ---
 
-| Developers                                             |                                                               |
-| ------------------------------------------------------ | ------------------------------------------------------------- |
-| [Saurabh Thakur](https://github.com/thakursaurabh1998) | ![st](https://avatars0.githubusercontent.com/u/18613564?s=50) |
+# 🧪 Testing
+
+Run blockchain tests:
+
+```bash
+truffle test
+```
+
+Make sure Ganache is running.
+
+---
+
+# 📚 Documentation & Notes
+
+* Useful Truffle commands → `instructions/COMMANDS.md`
+* Contract code → `contracts/`
+* Backend → `server.js`
+* Frontend → `client/`
+
+---
+
+# 📺 Project Overview Video (Optional)
+
+You can add a project demo link here later.
+
+---
+
+# 👨‍💻 Developed By
+
+**Aadil A**
+*Blockchain & MERN Stack Developer*
+GitHub: [AADIL20052911](https://github.com/AADIL20052911)
+
+
